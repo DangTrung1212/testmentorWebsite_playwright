@@ -1,22 +1,26 @@
 import {Locator, Page} from "@playwright/test";
+import BasePage from "../BasePage";
+import HeaderMenu from "../components/HeaderMenu";
 
-export default class HomePage {
-  private page: Page
+export default class HomePage extends BasePage {
 
-  private btnSearch: Locator
-  private boxSearch: Locator
-  private txtSearch: Locator
-  private btnSubmitSearch: Locator
-  private lblSearchResult: Locator
-  private lblTitleResult: Locator
-  private iconZalo: Locator
-  private imgPageTitle: Locator
-  private iconScrollUp: Locator
-  private checkedMoveEle: Locator
+  private readonly headerMenu: HeaderMenu
+  private readonly btnSearch: Locator
+  private readonly boxSearch: Locator
+  private readonly txtSearch: Locator
+  private readonly btnSubmitSearch: Locator
+  private readonly lblSearchResult: Locator
+  private readonly lblTitleResult: Locator
+  private readonly iconZalo: Locator
+  private readonly imgPageTitle: Locator
+  private readonly iconScrollUp: Locator
+  private readonly checkedMoveEle: Locator
 
   constructor(page: Page) {
 
-    this.page = page
+    super(page)
+    this.headerMenu = new HeaderMenu(page)
+
     this.btnSearch = page.locator("//div[@class='swm-header-search']");
     this.boxSearch = page.locator("//div[@class='swm_overlay_search_box']")
     this.txtSearch = page.locator("[name='s']")
@@ -26,7 +30,6 @@ export default class HomePage {
     this.iconZalo = page.locator(".call-now-button")
     this.imgPageTitle = page.locator("a[title='Test Mentor']")
     this.iconScrollUp = page.locator(".swm-go-top-scroll-btn-wrap")
-    // this.iconScrollUpIsHide = page.locator("//div[contains(@class, 'swm-go-top-scroll-btn-wrap') and contains(@style, 'display: none')]")
     this.checkedMoveEle = page.locator("//span[.='Điện thoại tư vấn lớp học']")
   }
 
@@ -41,7 +44,7 @@ export default class HomePage {
 
   public async clickOnSearchSubmitButton(): Promise<void> {
     await this.btnSubmitSearch.click()
-    await this.page.waitForLoadState("domcontentloaded")
+    await this.page.waitForLoadState()
   }
 
   public async verifySearchResultIsDisplayedSuccess(): Promise<boolean> {
@@ -61,8 +64,9 @@ export default class HomePage {
   }
 
   public async scrollToBelowElement(): Promise<void> {
-    await this.checkedMoveEle.scrollIntoViewIfNeeded()
-    await this.iconScrollUp.waitFor()
+    await Promise.all([
+      await this.checkedMoveEle.scrollIntoViewIfNeeded(),
+      await this.iconScrollUp.waitFor()])
   }
 
   public async isScrollUpButtonDisplayed(): Promise<boolean> {
@@ -75,5 +79,9 @@ export default class HomePage {
 
   public async getTitleOfHomePage(): Promise<string> {
     return this.page.title()
+  }
+
+  public getHeaderMenu(): HeaderMenu {
+    return this.headerMenu
   }
 }

@@ -1,5 +1,5 @@
 import {expect, test} from "@playwright/test"
-import HomePage from "../pages/HomePage";
+import HomePage from "../../pages/home_page/HomePage";
 
 
 test("Verify Zalo icon in home page", async ({page}) => {

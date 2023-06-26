@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import {defineConfig, devices} from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -10,6 +10,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 60000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -20,7 +21,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { open: 'always', outputFile: "test-mentor-report.html" }]],
+  reporter: [['html', {open: 'always', outputFile: "test-mentor-report.html"}]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -36,17 +37,17 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {...devices['Desktop Chrome']},
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {...devices['Desktop Firefox']},
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {...devices['Desktop Safari']},
     },
 
     /* Test against mobile viewports. */
