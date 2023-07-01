@@ -1,17 +1,16 @@
-import {expect, test} from "@playwright/test"
-import HomePage from "../../pages/home_page/HomePage";
+import {expect} from "@playwright/test"
+import {test} from "../../pages/BaseTest";
 
 
 test.describe("Verify home page", () => {
 
-  test("Verify Zalo icon in home page", async ({page}) => {
-    const homePage: HomePage = new HomePage(page)
+  test("Verify Zalo icon in home page", async ({page, homePage}) => {
     const expectedZaloURL: string = "https://zalo.me/0915333030"
 
     await test.step("Navigate to home page and verify page and zalo icon", async () => {
       await page.goto("/")
-      await expect(homePage.isTitleImgDisplayed()).resolves.toBe(true)
-      await expect(homePage.isZaloIconDisplayed()).resolves.toBe(true)
+      expect(await homePage.isTitleImgDisplayed()).toBe(true)
+      expect(await homePage.isZaloIconDisplayed()).toBe(true)
     })
 
     await test.step("Click on Zalo and verify redirecting of the page", async () => {
@@ -20,10 +19,9 @@ test.describe("Verify home page", () => {
     })
   })
 
-  test("Verify Search Functionality works correctly", async ({page}) => {
+  test("Verify Search Functionality works correctly", async ({page, homePage}) => {
     const keySearch = "Căn bản về Database"
     const expectedTitle = "Trang chủ - Test Mentor"
-    const homePage: HomePage = new HomePage(page)
 
     await test.step("Navigate to home page then verify it is loaded by title", async () => {
       await page.goto("/")
@@ -41,9 +39,8 @@ test.describe("Verify home page", () => {
     })
   })
 
-  test("Verify scrollbar work correctly in home page", async ({page}) => {
-    const homePage = new HomePage(page)
-    
+  test("Verify scrollbar work correctly in home page", async ({page, homePage}) => {
+
     await test.step("Navigate to home page", async () => {
       await page.goto("/")
     })
