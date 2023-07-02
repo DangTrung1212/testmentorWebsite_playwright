@@ -1,11 +1,12 @@
 import {test as baseTest} from "@playwright/test"
-import LoginPage from "./login_page/LoginPage";
-import ResourcePage from "./resourse_page/ResourcePage";
-import ServicePage from "./service-page/ServicePage";
-import IntroductionPage from "./introduction_page/IntroductionPage";
-import HomePage from "./home_page/HomePage";
-import CoursePage from "./course_page/CoursePage";
-import BlogPage from "./blog_page/BlogPage";
+import LoginPage from "../testmentor-pages/LoginPage";
+import ResourcePage from "../testmentor-pages/ResourcePage";
+import ServicePage from "../testmentor-pages/ServicePage";
+import IntroductionPage from "../testmentor-pages/IntroductionPage";
+import HomePage from "../testmentor-pages/HomePage";
+import CoursePage from "../testmentor-pages/CoursePage";
+import BlogPage from "../testmentor-pages/BlogPage";
+import ProfilePage from "../testmentor-pages/ProfilePage";
 
 type Pages = {
   loginPage: LoginPage,
@@ -14,7 +15,8 @@ type Pages = {
   introductionPage: IntroductionPage;
   homePage: HomePage,
   coursePage: CoursePage,
-  blogPage: BlogPage
+  blogPage: BlogPage,
+  profilePage: ProfilePage
 }
 
 export const test = baseTest.extend<Pages>({
@@ -51,5 +53,10 @@ export const test = baseTest.extend<Pages>({
   blogPage: async ({page}, use) => {
     const blogPage = new BlogPage(page)
     await use(blogPage)
+  },
+
+  profilePage: async ({page}, use) => {
+    const profilePage = new ProfilePage(page)
+    await use(profilePage)
   }
 })

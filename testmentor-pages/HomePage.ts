@@ -1,6 +1,6 @@
 import {Locator, Page} from "@playwright/test";
-import BasePage from "../BasePage";
-import HeaderMenu from "../components/HeaderMenu";
+import BasePage from "./BasePage";
+import HeaderMenu from "./components/HeaderMenu";
 
 export default class HomePage extends BasePage {
 

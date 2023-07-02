@@ -1,12 +1,12 @@
 import {expect} from "@playwright/test";
-import {test} from "../../pages/BaseTest";
-import * as user from "../../test-data/dev-user.json"
+import {test} from "../testmentor-fixture/BaseTest";
+import * as user from "../test-data/user-data.json"
 
 const devUser = user["dev-user"]
 
 test.describe("Verify login functionality", () => {
 
-  test("Verify login as dev", async ({page, loginPage}) => {
+  test("Verify login as dev", async ({page, loginPage, profilePage}) => {
 
     await test.step("Navigate to login page", async () => {
       await page.goto("/wp-login.php")
@@ -24,7 +24,7 @@ test.describe("Verify login functionality", () => {
     })
 
     await test.step("Assert that login successfully completed", async () => {
-      expect(await page.locator("//li[@id='wp-admin-bar-my-account']/a").textContent()).toContain(devUser.username)
+      expect(await profilePage.getAccountTitle()).toContain(devUser.username)
     })
   })
 })

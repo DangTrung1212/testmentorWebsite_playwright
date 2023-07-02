@@ -1,5 +1,5 @@
 import {expect} from "@playwright/test";
-import {test} from "../../pages/BaseTest";
+import {test} from "../testmentor-fixture/BaseTest";
 
 test.describe("Verify working of Header Menu", () => {
 
