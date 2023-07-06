@@ -1,6 +1,7 @@
 import BasePage from "./BasePage";
 import HeaderMenu from "./components/HeaderMenu";
-import {Locator, Page} from "@playwright/test";
+import {expect, Locator, Page, selectors} from "@playwright/test";
+import DataHelper from "../helpers/DataHelper";
 
 export default class ProfilePage extends BasePage {
 
@@ -25,25 +26,36 @@ export default class ProfilePage extends BasePage {
     return await this.ttlAccountName.textContent()
   }
 
-  public async generateNewPassword(): Promise<string | null> {
-    await this.btnGenerateNewPassword
-    return await this.tbxNewPassword.textContent()
+  public async generateNewPassword(): Promise<any> {
+    await this.btnGenerateNewPassword.scrollIntoViewIfNeeded()
+    await this.page.waitForLoadState("domcontentloaded")
+    await this.btnGenerateNewPassword.click()
+    await expect(this.tbxNewPassword).toBeFocused()
+    const newPassword = await this.tbxNewPassword.getAttribute("data-pw")
+    return newPassword
   }
 
-  public async backupChangedPassword(changedPassword: string): Promise<string | null> {
-    // Todo
-    return null
+  public async backupUserDataFile(user: any): Promise<void> {
+    DataHelper.writeJsonfileFromObj("./test-data/user-data.json", user)
   }
 
   public async submitUpdateProfile(): Promise<void> {
-    await this.btnSubmitProfile.click()
+    await Promise.all(
+      [
+        this.btnSubmitProfile.click(),
+        this.page.waitForLoadState("domcontentloaded")
+      ])
   }
 
   public async logout(): Promise<void> {
+    await this.ttlAccountName.hover()
     await this.btnLogout.click()
   }
 
   public async inputNewPassword(password: string): Promise<void> {
+    await this.btnGenerateNewPassword.scrollIntoViewIfNeeded()
+    await this.page.waitForLoadState("domcontentloaded")
+    await this.btnGenerateNewPassword.click()
     await this.tbxNewPassword.fill(password)
   }
 
