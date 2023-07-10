@@ -1,6 +1,6 @@
-import {test} from "../testmentor-fixture/BaseTest";
-import WebStep from "../testmentor_step/WebStep";
-import user from "../test-data/user-data.json"
+import {test} from "../../testmentor/testmentor-fixture/BaseTestmentorTest";
+import WebStep from "../../testmentor/testmentor_step/WebStep";
+import user from "../../test-data/user-data.json"
 import {expect} from "@playwright/test";
 
 const devUser = user["dev-user"]

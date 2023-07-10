@@ -5,7 +5,7 @@ export default class DataHelper {
     try {
       fs.writeFileSync(path, JSON.stringify(obj))
     } catch (e) {
-      console.error("ERR when write file", e)
+      console.error("ERR when write file ", e)
     }
   }
 }

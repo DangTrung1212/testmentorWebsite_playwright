@@ -1,5 +1,5 @@
 import LoginPage from "../testmentor-pages/LoginPage";
-import {Pages} from "../testmentor-fixture/BaseTest";
+import {Pages} from "../testmentor-fixture/BaseTestmentorTest";
 import ProfilePage from "../testmentor-pages/ProfilePage";
 
 export default class WebStep {
@@ -12,7 +12,7 @@ export default class WebStep {
   }
 
   public async login(user: any) {
-    await this.loginPage.inputUserName(user.username)
+    await this.loginPage.inputUsername(user.username)
     await this.loginPage.inputPassword(user.password)
     const captchaResult = await this.loginPage.calculateCaptcha()
     await this.loginPage.inputCaptcha(captchaResult)

@@ -39,7 +39,7 @@ export default class LoginPage extends BasePage {
     } else throw new Error("Captcha pattern is not matched")
   }
 
-  public async inputUserName(username: string): Promise<void> {
+  public async inputUsername(username: string): Promise<void> {
     await this.txtUserName.fill(username)
   }
 

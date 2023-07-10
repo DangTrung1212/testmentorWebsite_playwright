@@ -8,6 +8,7 @@ import CoursePage from "../testmentor-pages/CoursePage";
 import BlogPage from "../testmentor-pages/BlogPage";
 import ProfilePage from "../testmentor-pages/ProfilePage";
 import WebStep from "../testmentor_step/WebStep";
+import StaticVariables from "../testmentor-constant/StaticVariables";
 
 export type Pages = {
   loginPage: LoginPage,
@@ -20,7 +21,7 @@ export type Pages = {
   profilePage: ProfilePage
 }
 
-export const test = baseTest.extend<Pages & { pages: Pages, webStep: WebStep }>({
+const test = baseTest.extend<Pages & { pages: Pages, webStep: WebStep }>({
     loginPage: async ({page}, use) => {
       const loginPage = new LoginPage(page)
       await use(loginPage)
@@ -83,9 +84,14 @@ export const test = baseTest.extend<Pages & { pages: Pages, webStep: WebStep }>(
       }
       await use(pages)
     },
-    webStep : async ({pages}, use) => {
+    webStep: async ({pages}, use) => {
       const webStep = new WebStep(pages)
-      use(webStep)
-     }
+      await use(webStep)
+    }
   }
 )
+test.use({
+  baseURL: StaticVariables.baseURL
+})
+
+export {test}

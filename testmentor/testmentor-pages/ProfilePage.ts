@@ -1,7 +1,7 @@
 import BasePage from "./BasePage";
 import HeaderMenu from "./components/HeaderMenu";
 import {expect, Locator, Page, selectors} from "@playwright/test";
-import DataHelper from "../helpers/DataHelper";
+import DataHelper from "../../helpers/DataHelper";
 
 export default class ProfilePage extends BasePage {
 

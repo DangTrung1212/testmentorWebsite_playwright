@@ -1,6 +1,6 @@
 import {expect} from "@playwright/test";
-import {test} from "../testmentor-fixture/BaseTest";
-import * as user from "../test-data/user-data.json"
+import {test} from "../../testmentor/testmentor-fixture/BaseTestmentorTest";
+import * as user from "../../test-data/user-data.json"
 
 const devUser = user["dev-user"]
 
@@ -13,7 +13,7 @@ test.describe("Verify login functionality", () => {
     })
 
     await test.step("Input username and password", async () => {
-      await loginPage.inputUserName(devUser.username)
+      await loginPage.inputUsername(devUser.username)
       await loginPage.inputPassword(devUser.password)
     })
 
