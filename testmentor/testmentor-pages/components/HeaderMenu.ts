@@ -1,5 +1,5 @@
 import BasePage from "../BasePage";
-import {Page} from "@playwright/test";
+import {Locator, Page, request} from "@playwright/test";
 
 export default class HeaderMenu extends BasePage {
 
@@ -61,5 +61,32 @@ export default class HeaderMenu extends BasePage {
       await this.page.waitForLoadState()
     ])
   }
+
+  public clickAndGetTitle(locator: Locator): () => Promise<string> {
+    return async () => {
+      await Promise.all([
+        await locator.click(),
+        await this.page.waitForLoadState()
+      ])
+      const title = await this.page.title()
+      return title
+    }
+  }
+
+  public controlNavigate() {
+    return [
+       this.clickAndGetTitle(this.navHomePage),
+       this.clickAndGetTitle(this.navIntroduction),
+       this.clickAndGetTitle(this.navCourses),
+       this.clickAndGetTitle(this.navService),
+       this.clickAndGetTitle(this.navBlog),
+       this.clickAndGetTitle(this.navResources),
+    ]
+  }
+  // public async clickAndGetTitle(page: BasePage) {
+  //   const map = {
+  //
+  //   }
+  // }
 
 }
